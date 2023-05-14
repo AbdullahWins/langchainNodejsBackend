@@ -20,7 +20,6 @@ app.use(express.json());
 
 // Receiving data from App.js
 let data
-
 app.post('/', (req, res) => {
     data = req.body.data
     console.log(data)
@@ -55,6 +54,6 @@ app.get('/', async (req, res) => {
 });
 
 // Change the port if you wish to !
-app.listen(8000, () => {
-  console.log('Server listening on port 8000');
+app.listen(5000, () => {
+  console.log('Server listening on port 5000');
 })
