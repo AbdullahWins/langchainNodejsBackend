@@ -18,9 +18,11 @@ app.post("/", async (req, res) => {
       openAIApiKey: process.env.OPENAI_API_KEY,
       temperature: 0.9,
     });
+
     const response = await model.call(
       `What would be a good company name a company that makes ${inputData}?`
     );
+
     console.log("Response data:", response);
     res.send(response);
   } catch (error) {
