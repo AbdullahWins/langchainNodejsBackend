@@ -3,6 +3,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 import { OpenAI } from "langchain/llms/openai";
 import { JSONLoader } from "langchain/document_loaders/fs/json";
+import { DocxLoader } from "langchain/document_loaders/fs/docx";
+import { PlaywrightWebBaseLoader } from "langchain/document_loaders/web/playwright";
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { BufferMemory } from "langchain/memory";
 import { ConversationChain } from "langchain/chains";
 import { ChatOpenAI } from "langchain/chat_models/openai";
@@ -44,6 +47,35 @@ app.get("/", (req, res) => {
 app.get("/package", async (req, res) => {
   const loader = new JSONLoader("./package.json");
   const packageData = await loader.load();
+  res.send(packageData);
+});
+
+//docx
+app.get("/docx", async (req, res) => {
+  const loader = new DocxLoader("./banana.DOCX");
+  const packageData = await loader.load();
+  console.log(packageData);
+  //   res.send(packageData);
+});
+
+//link
+app.get("/link", async (req, res) => {
+  const loader = new PlaywrightWebBaseLoader(
+    "https://naimurnoyon.github.io/dreampathPrivacyPolicy/"
+  );
+  const packageData = await loader.load();
+  console.log(packageData);
+  res.send(packageData);
+});
+
+//pdf
+app.get("/pdf", async (req, res) => {
+  //   const loader = new PDFLoader("./things.pdf");
+  const loader = new PDFLoader("./things.pdf", {
+    splitPages: false,
+  });
+  const packageData = await loader.load();
+  console.log(packageData);
   res.send(packageData);
 });
 
